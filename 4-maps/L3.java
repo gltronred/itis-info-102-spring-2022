@@ -12,10 +12,9 @@ public class L3 {
                 System.out.println(x);
                 return x+3;
             });
-        l.removeIf(new Predicate<Integer>() {
-                public boolean test(Integer x) {
-                    return x % 2 == 0;
-                }
+        l.removeIf((Integer x) -> {
+                System.out.println("test: " + x);
+                return x % 2 == 0;
             });
 
         System.out.println(l);
