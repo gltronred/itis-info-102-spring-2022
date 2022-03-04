@@ -9,7 +9,7 @@ public class L4 {
         l.add(3);
 
         l.replaceAll((x) -> x+2);
-        l.removeIf((Integer x) -> {return x % 2 == 0;});
+        l.removeIf((x) -> x % 2 == 0);
 
         System.out.println(l);
     }
