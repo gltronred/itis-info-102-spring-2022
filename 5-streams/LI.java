@@ -25,10 +25,7 @@ public class LI {
                 Stream.iterate(
                     new AbstractMap.SimpleEntry<Integer,Integer>(n,1),
                     (p) -> p.getValue()<=n,
-                    (p) -> {
-                        p.setValue(p.getValue()+1);
-                        return p;
-                    }))
+                    (p) -> new AbstractMap.SimpleEntry<>(p.getKey(), p.getValue()+1)))
             .map((p) -> p.getKey())
             .collect(Collectors.toList());
     }
