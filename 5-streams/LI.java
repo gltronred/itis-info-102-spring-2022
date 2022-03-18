@@ -1,6 +1,18 @@
 
 import java.util.*;
+import java.util.function.*;
 import java.util.stream.*;
+
+class Up implements Supplier<Integer> {
+    private int cur;
+    public Up() {
+        this.cur = 0;
+    }
+    public Integer get() {
+        cur++;
+        return cur;
+    }
+}
 
 public class LI {
     /*
@@ -46,8 +58,15 @@ public class LI {
     // 5 -> 16 -> 8 -> 4 -> 2 -> 1
     //
     // Поэтому task2(5) == 16 и task2(2) == 2
-    public static int task2(int n) {
-        return 1;
+    public static int task2(int max) {
+        return Stream.generate(new Up())
+            .limit(max)
+            .flatMapToInt((n) ->
+                IntStream.iterate(n,
+                               (m) -> m!=1,
+                               (m) -> m%2==0 ? m/2 : 3*m+1))
+            .max()
+            .getAsInt();
     }
     public static void main(String[] args) {
         List<Integer> l = new LinkedList<>();
