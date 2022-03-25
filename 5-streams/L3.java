@@ -3,6 +3,13 @@ import java.util.*;
 import java.util.stream.*;
 
 public class L3 {
+    // Напишите, используя collect и Collectors,
+    // получение по входному IntStream с
+    // цифрами числа количества различных
+    // цифр в числе
+    public static int digits(IntStream s) {
+        return 0;
+    }
     // Напишите reduce, который по входному
     // IntStream с цифрами числа получит
     // само значение числа
@@ -19,5 +26,11 @@ public class L3 {
         // 1234
         System.out.println(
             number(IntStream.of(1,2,3,4)));
+        // 4
+        System.out.println(
+            digits(IntStream.of(1,2,3,4)));
+        // 2
+        System.out.println(
+            digits(IntStream.of(1,1,1,4)));
     }
 }
