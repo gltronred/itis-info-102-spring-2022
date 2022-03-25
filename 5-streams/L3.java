@@ -7,7 +7,7 @@ public class L3 {
     // IntStream с цифрами числа получит
     // само значение числа
     public static int number(IntStream s) {
-        return 0;
+        return s.reduce(0, (x,y) -> 10*x + y);
     }
     public static void main(String[] args) {
         // [1,2,3]
