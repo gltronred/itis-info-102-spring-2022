@@ -26,16 +26,40 @@ class Transaction {
     public String getCurrency() { return currency; }
 }
 
+class Change {
+    // Счёт
+    String account;
+    // Сколько
+    int amount;
+    // В какой валюте
+    String currency;
+
+    public Change(String account, int amount, String currency) {
+        this.account = account;
+        this.amount = amount;
+        this.currency = currency;
+    }
+
+    public String getAccount() { return account; }
+    public int getAmount() { return amount; }
+    public String getCurrency() { return currency; }
+}
+
 public class TestTest {
     // Использовать java.util.stream.* существенным образом
     //
     // 1. Получить сумму всех транзакций в USD
     public static int task1(List<Transaction> txns) {
-        return 0;
+        return txns.stream()
+            .filter(t -> t.getCurrency().equals("USD"))
+            .mapToInt(Transaction::getAmount)
+            .sum();
     }
     // 2. Вернуть всех получателей транзакций
     public static Set<String> task2(List<Transaction> txns) {
-        return null;
+        return txns.stream()
+            .map(Transaction::getTo)
+            .collect(Collectors.toSet());
     }
     // 3. Считая, что вначале баланс у всех равен 0, подсчитать,
     // какой будет баланс после прохождения всех транзакций
@@ -43,7 +67,13 @@ public class TestTest {
     //                   |          |        |
     //                   v          v        v
     public static Map<String, Map<String, Integer>> task3(List<Transaction> txns) {
-        return null;
+        return txns.stream()
+            .flatMap(t ->
+                Stream.of(new Change(t.getFrom(), -t.getAmount(), t.getCurrency()),
+                          new Change(t.getTo(),    t.getAmount(), t.getCurrency())))
+            .collect(Collectors.groupingBy(Change::getAccount,
+                Collectors.groupingBy(Change::getCurrency,
+                    Collectors.summingInt(Change::getAmount))));
     }
     public static void main(String[] args) {
         // Тестовый пример
