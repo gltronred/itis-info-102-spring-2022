@@ -3,7 +3,34 @@ import java.net.*;
 import java.nio.file.*;
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
+
 public class L4 {
+    @Test
+    public void testOk() throws FormatException{
+        assertEquals(List.of(2,3),
+                     splitLast("1 2 3",2));
+        assertEquals(List.of(1,2),
+                     splitLast("1 2",5));
+    }
+    @Test
+    public void testNull() throws FormatException{
+        assertNull(splitLast("",3));
+    }
+    @Test
+    public void testException() {
+        assertThrows(FormatException.class,
+                     () -> splitLast("asd",3));
+        assertThrows(FormatException.class,
+                     () -> splitLast("1 2",3));
+        assertThrows(FormatException.class,
+                     () -> splitLast("1",3));
+    }
+
+    public static List<Integer> splitLast(String s, int n) throws FormatException {
+        return new LinkedList<>();
+    }
     public static void task2() throws IOException {
         PrintWriter wrong = new PrintWriter(new FileOutputStream("wrong.txt"));
         Files.lines(Path.of("input.txt"))
@@ -50,3 +77,5 @@ public class L4 {
         System.out.println(task3());
     }
 }
+
+class FormatException extends Exception {}
