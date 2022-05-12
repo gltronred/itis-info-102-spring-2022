@@ -31,8 +31,14 @@ public class L1 {
         return l;
     }
     public static void main(String[] args) {
-        int[] a = {5, 7, 20, 1};
+        int[] a = new int[10000];
+        Random r = new Random();
+        for (int i=0; i<a.length; i++) {
+            a[i] = r.nextInt(10) + 1;
+        }
+        System.out.println("======");
         LinkedList<Integer> res = timeSort(a);
-        System.out.println(res);
+        System.out.println(res.get(0) + " " + res.get(1));
+        System.out.println(res.size());
     }
 }
