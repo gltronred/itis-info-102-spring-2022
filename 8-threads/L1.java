@@ -36,6 +36,21 @@ public class L1 {
             threads[i].start();
         }
         // ЗАПУСК ПОТОКА ДЛЯ ЗАДАЧИ
+        new Thread(() -> {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {}
+                int[] b = new int[12];
+                synchronized(l) {
+                    Iterator<Integer> it = l.iterator();
+                    while (it.hasNext()) {
+                        b[it.next()]++;
+                    }
+                }
+                for (int i=1; i<=11; i++) {
+                    System.out.println(i + " -> " + b[i]);
+                }
+        }).start();
         try {
             for (Thread t : threads) {
                 t.join();
