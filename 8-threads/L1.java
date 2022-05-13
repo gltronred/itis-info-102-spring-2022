@@ -1,5 +1,16 @@
 import java.util.*;
 
+// Добавить ещё один поток, который запустится
+// после запуска всех потоков сортировки и
+// подсчитает и выведет на экран, сколько в списке
+// чисел, равных 1, равных 2 и т.д. равных 11
+//
+// 1 -> 1001
+// 2 -> 998
+// 3 -> 1230
+// ...
+// 11 -> ...
+
 class MyThread extends Thread {
     private int x;
     private List<Integer> l;
@@ -23,6 +34,7 @@ public class L1 {
             threads[i] = new MyThread(a[i],l);
             threads[i].start();
         }
+        // ЗАПУСК ПОТОКА ДЛЯ ЗАДАЧИ
         try {
             for (Thread t : threads) {
                 t.join();
