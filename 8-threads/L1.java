@@ -11,7 +11,9 @@ class MyThread extends Thread {
         try {
             Thread.sleep(x*500);
         } catch (InterruptedException e) {}
-        l.add(x);
+        synchronized(l) {
+            l.add(x);
+        }
     }
 }
 
