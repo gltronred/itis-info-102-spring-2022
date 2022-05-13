@@ -2,8 +2,8 @@ import java.util.*;
 
 class MyThread extends Thread {
     private int x;
-    private LinkedList<Integer> l;
-    public MyThread(int x, LinkedList<Integer> l) {
+    private List<Integer> l;
+    public MyThread(int x, List<Integer> l) {
         this.x = x;
         this.l = l;
     }
@@ -11,15 +11,13 @@ class MyThread extends Thread {
         try {
             Thread.sleep(x*500);
         } catch (InterruptedException e) {}
-        synchronized(l) {
-            l.add(x);
-        }
+        l.add(x);
     }
 }
 
 public class L1 {
-    public static LinkedList<Integer> timeSort(int[] a) {
-        LinkedList<Integer> l = new LinkedList<>();
+    public static List<Integer> timeSort(int[] a) {
+        List<Integer> l = Collections.synchronizedList(new LinkedList<>());
         MyThread[] threads = new MyThread[a.length];
         for (int i=0; i<a.length; i++) {
             threads[i] = new MyThread(a[i],l);
@@ -39,7 +37,7 @@ public class L1 {
             a[i] = r.nextInt(10) + 1;
         }
         System.out.println("======");
-        LinkedList<Integer> res = timeSort(a);
+        List<Integer> res = timeSort(a);
         System.out.println(res.get(0) + " " + res.get(1));
         System.out.println(res.size());
     }
